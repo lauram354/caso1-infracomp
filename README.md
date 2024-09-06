@@ -3,3 +3,4 @@
 ## Integrantes
 
 - Daniel Camilo Quimbay Velásquez - d.quimbay - 202313861
+- Laura Sofia Murcia - l.murciac - 202123099
