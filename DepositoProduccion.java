@@ -33,6 +33,7 @@ public class DepositoProduccion {
         Producto p = productos.get(0);
         productos.remove(0);
         this.capDepProd ++;
+        System.out.println("Se libero un espacio en el deposito de produccion");
         notify();
         return p;
     }
