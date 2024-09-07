@@ -14,11 +14,7 @@ public class DepositoProduccion {
     }
 
     public synchronized void guardarProducto(Producto p){
-        if (capDepProd>0){
-            System.out.println("Se guardo un producto tipo " + p.getTipo());
-            this.productos.add(p);
-            this.capDepProd --;
-        }else{
+        while (capDepProd == 0){
             try {
                 System.out.println("un productor esta esperando");
                 wait();
@@ -26,6 +22,11 @@ public class DepositoProduccion {
                 e.printStackTrace();
             }
         }
+
+        System.out.println("Se guardo un producto tipo " + p.getTipo());
+        this.productos.add(p);
+        this.capDepProd --;
+        
     }
 
     public synchronized Producto sacarProducto(){
