@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class DepositoProduccion {
     private int capDepProd;
     private List<Producto> productos = new ArrayList<>();
+    private int productosNoTerminales = 0;
 
     public DepositoProduccion(int capDepProd) {
         this.capDepProd = capDepProd;
@@ -14,11 +15,7 @@ public class DepositoProduccion {
     }
 
     public synchronized void guardarProducto(Producto p){
-        if (capDepProd>0){
-            System.out.println("Se guardo un producto tipo " + p.getTipo());
-            this.productos.add(p);
-            this.capDepProd --;
-        }else{
+        while (capDepProd == 0){
             try {
                 System.out.println("un productor esta esperando");
                 wait();
@@ -26,13 +23,27 @@ public class DepositoProduccion {
                 e.printStackTrace();
             }
         }
+
+        System.out.println("Se guardo un producto tipo " + p.getTipo());
+
+        if (p.getTipo().equals("A") | p.getTipo().equals("B")){
+            this.productosNoTerminales ++;
+        }
+
+        this.productos.add(p);
+        this.capDepProd --;
+        
     }
 
     public synchronized Producto sacarProducto(){
         /*TODO: revisar problema de lista vacía */
         Producto p = productos.get(0);
         productos.remove(0);
+        if (p.getTipo().equals("A") | p.getTipo().equals("B")){
+            this.productosNoTerminales --;
+        }
         this.capDepProd ++;
+        System.out.println("Se libero un espacio en el deposito de produccion");
         notify();
         return p;
     }
@@ -45,4 +56,7 @@ public class DepositoProduccion {
         }
     }
     
+    public synchronized int getProdNoTerminales(){
+        return this.productosNoTerminales;
+    }
 }

@@ -26,13 +26,14 @@ public class Consola {
         Productor pTipoB1 = new Productor(3, "B", numProductos, depProduccion);
         Productor pTipoB2 = new Productor(4, "B", numProductos, depProduccion);
         OperarioInterno op1 = new OperarioInterno(1, cinta, depProduccion, depDistribucion);
+        OperarioInterno op2 = new OperarioInterno(2, cinta, depProduccion, depDistribucion);
+
 
         pTipoA1.start();
         pTipoA2.start();
         pTipoB1.start();
         pTipoB2.start();
         op1.start();
-
-
+        op2.start();
     }
 }
