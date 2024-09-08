@@ -28,6 +28,7 @@ public class Cinta {
         Producto p = this.productos.get(0);
         this.productos.remove(0);
         this.ocupado = false;
+        System.out.println("Se saco un producto tipo " + p.getTipo() + " de la cinta");
         return p;
     }
 }

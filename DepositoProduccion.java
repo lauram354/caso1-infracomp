@@ -56,7 +56,16 @@ public class DepositoProduccion {
         }
     }
     
-    public synchronized int getProdNoTerminales(){
-        return this.productosNoTerminales;
+    public synchronized void agregarProductoTerminal(Producto p){
+        while(productosNoTerminales>0){
+            try {
+                System.out.println("un producto terminal esta esperando para ser guardado");
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        guardarProducto(p);
+
     }
 }

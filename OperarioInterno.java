@@ -35,7 +35,7 @@ public class OperarioInterno extends Thread{
             }
             
             Producto p = cinta.sacaProducto();
-            System.out.println("Se saco un producto tipo " + p.getTipo() + " de la cinta");
+            
 
         }
     }
