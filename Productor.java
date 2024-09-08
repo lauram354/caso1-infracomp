@@ -26,5 +26,7 @@ public class Productor extends Thread{
         numProductos --;
         System.out.println("Al productor " + String.valueOf(id) + " le quedan " + String.valueOf(numProductos));
 
+        System.out.println("Termino el productor " + String.valueOf(id));
+
     }
 }

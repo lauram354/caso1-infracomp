@@ -12,9 +12,9 @@ public class Consola {
         Scanner input = new Scanner(System.in);
         System.out.println("Bienvenido, por favor ingresa el número de productos a realizar: ");
         int numProductos = input.nextInt();
-        System.out.println("Ingresa la capacitdad del deposito de producción: ");
+        System.out.println("Ingresa la capacidad del deposito de producción: ");
         int capDepProd = input.nextInt();
-        System.out.println("Ingresa la capacitdad del deposito de distribución: ");
+        System.out.println("Ingresa la capacidad del deposito de distribución: ");
         int capDepDist = input.nextInt();
         input.close();
 
@@ -35,5 +35,6 @@ public class Consola {
         pTipoB2.start();
         op1.start();
         op2.start();
+        System.out.println("Termina el main");
     }
 }

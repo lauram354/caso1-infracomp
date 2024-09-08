@@ -4,6 +4,7 @@ public class OperarioInterno extends Thread{
     private DepositoProduccion depositoProduccion;
     private DepositoDistribucion depositoDistribucion;
     private int termina = 0;
+    private int termina2 = 0;
 
     public OperarioInterno(int id, Cinta cinta, DepositoProduccion depositoProduccion, DepositoDistribucion depositoDistribucion) {
         this.id = id;
@@ -23,21 +24,28 @@ public class OperarioInterno extends Thread{
 
                 depositoProduccion = Consola.getDepProduccion();
                 Producto p = depositoProduccion.sacarProducto();
-                if (p.getTipo().equals("FIN_A") | p.getTipo().equals("FIN_B") ){
+                if (p.getTipo().equals("FIN_A") || p.getTipo().equals("FIN_B") ){
                     termina ++;
                 }
                 cinta.guardarProducto(p);
             }
             
         }else if (id == 2){
-            while (!cinta.getOcupado()){
-                Thread.yield();
-            }
-            
-            Producto p = cinta.sacaProducto();
-            
+            while (termina2 <4){
+                while (!cinta.getOcupado()){
+                    Thread.yield();
+                }
+                
+                Producto p = cinta.sacaProducto();
+                if (p.getTipo().equals("FIN_A") || p.getTipo().equals("FIN_B") ){
+                    termina2 ++;
+                }
+                depositoDistribucion.guardarProducto(p);
+            }          
 
         }
+
+        System.out.println("Termino el operario " + String.valueOf(id));
     }
 
     
