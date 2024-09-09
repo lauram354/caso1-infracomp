@@ -27,6 +27,10 @@ public class Consola {
         Productor pTipoB2 = new Productor(4, "B", numProductos, depProduccion);
         OperarioInterno op1 = new OperarioInterno(1, cinta, depProduccion, depDistribucion);
         OperarioInterno op2 = new OperarioInterno(2, cinta, depProduccion, depDistribucion);
+        Distribuidor dTipoA1 = new Distribuidor(1, "A", depDistribucion);
+        Distribuidor dTipoA2 = new Distribuidor(2, "A", depDistribucion);
+        Distribuidor dTipoB1 = new Distribuidor(3, "B", depDistribucion);
+        Distribuidor dTipoB2 = new Distribuidor(4, "B", depDistribucion);
 
 
         pTipoA1.start();
@@ -35,6 +39,10 @@ public class Consola {
         pTipoB2.start();
         op1.start();
         op2.start();
+        dTipoA1.start();
+        dTipoA2.start();
+        dTipoB1.start();
+        dTipoB2.start();
         System.out.println("Termina el main");
     }
 }
