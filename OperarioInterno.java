@@ -31,7 +31,7 @@ public class OperarioInterno extends Thread{
             
         }else if (id == 2){
             while (termina2 <4){
-                while (!cinta.getOcupado()){
+                while (!cinta.getOcupado() || depositoDistribucion.getCapDepDist() == 0){
                     Thread.yield();
                 }
                 
