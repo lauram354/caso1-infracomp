@@ -43,6 +43,6 @@ public class Consola {
         dTipoA2.start();
         dTipoB1.start();
         dTipoB2.start();
-        System.out.println("Termina el main");
+        /*System.out.println("Termina el main");*/
     }
 }

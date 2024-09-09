@@ -22,7 +22,6 @@ public class OperarioInterno extends Thread{
                     Thread.yield();
                 }
 
-                depositoProduccion = Consola.getDepProduccion();
                 Producto p = depositoProduccion.sacarProducto();
                 if (p.getTipo().equals("FIN_A") || p.getTipo().equals("FIN_B") ){
                     termina ++;
