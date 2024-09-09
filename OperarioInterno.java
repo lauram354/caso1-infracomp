@@ -18,7 +18,7 @@ public class OperarioInterno extends Thread{
         /*Si el id es 1 significa que es el operario que lleva del deposito de producción a la cinta */
         if (this.id == 1){
             while (termina <4){
-                while (!depositoProduccion.hayProductos() | cinta.getOcupado()){
+                while (!depositoProduccion.hayProductos() || cinta.getOcupado()){
                     Thread.yield();
                 }
 
