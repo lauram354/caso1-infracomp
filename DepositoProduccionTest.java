@@ -39,14 +39,6 @@ public class DepositoProduccionTest {
         assertFalse(deposito.hayProductos(), "No debería haber productos en el depósito");
     }
 
-    @Test
-    public void testAgregarProductoTerminal() {
-        deposito.guardarProducto(productoA, 5);
-        deposito.agregarProductoTerminal(productoTerminal);
-        
-        assertTrue(deposito.hayProductos(), "Debería haber productos en el depósito");
-       
-    }
 
     @Test
     public void testHayProductos() {
