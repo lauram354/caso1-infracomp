@@ -1,0 +1,17 @@
+{
+    "label": "Ejecutar pruebas JUnit",
+    "type": "shell",
+    "command": "java",
+    "args": [
+      "-jar",
+      "lib/junit-platform-console-standalone-1.x.x.jar",
+      "--select-class=DepositoProduccionTest"
+    ],
+    "group": {
+      "kind": "test",
+      "isDefault": true
+    },
+    "problemMatcher": [],
+    "detail": "Tarea para ejecutar las pruebas JUnit"
+  }
+  
