@@ -10,22 +10,21 @@ public class DepositoDistribucion {
     public DepositoDistribucion(int capDepDist) {
         this.capDepDist = capDepDist;
     }
-    
-    public synchronized void guardarProducto(Producto p){
-        System.out.println("Se guardo un producto tipo " + p.getTipo() + " en el deposito de distribucion");
-        if (p.getTipo().equals("A")){
-            productosNoTerminalesA ++;
+
+    public synchronized void guardarProducto(Producto p) {
+        if (p.getTipo().equals("A")) {
+            productosNoTerminalesA++;
         }
-        if (p.getTipo().equals("B")){
-            productosNoTerminalesB ++;
+        if (p.getTipo().equals("B")) {
+            productosNoTerminalesB++;
         }
         this.productos.add(p);
-        this.capDepDist --;
-        notifyAll();    
+        this.capDepDist--;
+        notifyAll();
     }
 
-    public synchronized Producto sacarProducto(String tipo){
-        while(this.productos.size() == 0 || !hayProductoTipo(tipo)){
+    public synchronized Producto sacarProducto(String tipo) {
+        while (this.productos.size() == 0 || !hayProductoTipo(tipo)) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -33,66 +32,65 @@ public class DepositoDistribucion {
             }
         }
         Producto p = productos.get(0);
-        if (tipo.equals("A")){
-            if (productosNoTerminalesA == 0){
+        if (tipo.equals("A")) {
+            if (productosNoTerminalesA == 0) {
                 p = traerProductoGeneral("A");
-            }else{
+            } else {
                 p = traerProductoNoTerminal("A");
-                productosNoTerminalesA --;
+                productosNoTerminalesA--;
             }
-        }else if(tipo.equals("B")){
-            if (productosNoTerminalesB == 0){
+        } else if (tipo.equals("B")) {
+            if (productosNoTerminalesB == 0) {
                 p = traerProductoGeneral("B");
-            }else{
-                p= traerProductoNoTerminal("B");
-                productosNoTerminalesB --;
+            } else {
+                p = traerProductoNoTerminal("B");
+                productosNoTerminalesB--;
             }
 
         }
 
-    
         return p;
     }
 
-    public synchronized Producto traerProductoGeneral(String tipo){
+    public synchronized Producto traerProductoGeneral(String tipo) {
         Producto p = productos.get(0);
 
         for (int i = 0; i < productos.size(); i++) {
             p = productos.get(i);
-            if (p.getTipo().equals("FIN_" + tipo)){
+            if (p.getTipo().equals("FIN_" + tipo)) {
                 this.productos.remove(i);
-                capDepDist ++;
+                capDepDist++;
                 break;
             }
         }
         return p;
     }
 
-    public synchronized Producto traerProductoNoTerminal(String tipo){
+    public synchronized Producto traerProductoNoTerminal(String tipo) {
         Producto p = productos.get(0);
 
         for (int i = 0; i < productos.size(); i++) {
             p = productos.get(i);
-            if (p.getTipo().equals(tipo)){
+            if (p.getTipo().equals(tipo)) {
                 this.productos.remove(i);
-                capDepDist ++;
+                capDepDist++;
                 break;
             }
         }
         return p;
     }
 
-    public synchronized Boolean hayProductoTipo(String tipo){
+    public synchronized Boolean hayProductoTipo(String tipo) {
         for (int i = 0; i < productos.size(); i++) {
             Producto p = productos.get(i);
-            if (p.getTipo().equals(tipo) || p.getTipo().equals("FIN_" + tipo)){
+            if (p.getTipo().equals(tipo) || p.getTipo().equals("FIN_" + tipo)) {
                 return true;
             }
         }
         return false;
     }
 
-    public synchronized int getCapDepDist(){
+    public synchronized int getCapDepDist() {
         return this.capDepDist;
     }
 }

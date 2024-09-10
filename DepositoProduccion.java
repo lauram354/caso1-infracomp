@@ -14,60 +14,58 @@ public class DepositoProduccion {
         return capDepProd;
     }
 
-    public synchronized void guardarProducto(Producto p){
-        while (capDepProd == 0){
+    public synchronized void guardarProducto(Producto p) {
+        while (capDepProd == 0) {
             try {
-                System.out.println("un productor esta esperando");
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println("Se guardo un producto tipo " + p.getTipo());
-
-        if (p.getTipo().equals("A") | p.getTipo().equals("B")){
-            this.productosNoTerminales ++;
+        if (p.getTipo().equals("A") | p.getTipo().equals("B")) {
+            this.productosNoTerminales++;
         }
 
         this.productos.add(p);
-        this.capDepProd --;
-        
+        this.capDepProd--;
+
     }
 
-    public synchronized Producto sacarProducto(){
-        /*TODO: revisar problema de lista vacía */
-        while (this.productos.size() == 0){
+    public synchronized Producto sacarProducto() {
+        /* TODO: revisar problema de lista vacía */
+        while (this.productos.size() == 0) {
             Thread.yield();
         }
         Producto p = productos.get(0);
+        System.out.println("Un producto de tipo " + p.getTipo() + " fue sacado del deposito de produccion");
         productos.remove(0);
-        if (p.getTipo().equals("A") | p.getTipo().equals("B")){
-            this.productosNoTerminales --;
+        if (p.getTipo().equals("A") | p.getTipo().equals("B")) {
+            this.productosNoTerminales--;
         }
-        this.capDepProd ++;
-        System.out.println("Se libero un espacio en el deposito de produccion");
+        this.capDepProd++;
         notify();
         return p;
     }
 
-    public synchronized Boolean hayProductos(){
-        if (this.productos.size() > 0){
+    public synchronized Boolean hayProductos() {
+        if (this.productos.size() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
-    public synchronized void agregarProductoTerminal(Producto p){
-        while(productosNoTerminales>0){
+
+    public synchronized void agregarProductoTerminal(Producto p) {
+        while (productosNoTerminales > 0) {
             try {
-                System.out.println("un producto terminal esta esperando para ser guardado");
+                ;
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("Se agrego un producto terminal de tipo " + p.getTipo() + " al deposito de produccion");
         guardarProducto(p);
 
     }
