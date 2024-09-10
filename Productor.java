@@ -24,7 +24,6 @@ public class Productor extends Thread {
         Producto terminal = new Producto("FIN_" + this.tipo);
         System.out.println("Productor " + String.valueOf(id) + ": produjo un producto terminal " + terminal.getTipo());
         deposito.agregarProductoTerminal(terminal);
-        numProductos--;
         System.out.println("Termino el productor " + String.valueOf(id));
 
     }
