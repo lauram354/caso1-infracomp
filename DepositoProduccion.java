@@ -28,10 +28,10 @@ public class DepositoProduccion {
         }
 
         this.productos.add(p);
-        this.capDepProd--;
         System.out.println(
                 "Productor " + String.valueOf(p.getIdProductorEncargado()) + ": produjo un producto " + p.getTipo()
                         + ". Restantes: " + restantes);
+        this.capDepProd--;
 
     }
 
@@ -62,13 +62,11 @@ public class DepositoProduccion {
     public synchronized void agregarProductoTerminal(Producto p) {
         while (productosNoTerminales > 0) {
             try {
-                ;
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Se agrego un producto terminal de tipo " + p.getTipo() + " al deposito de produccion");
         guardarProducto(p, 0);
 
     }
