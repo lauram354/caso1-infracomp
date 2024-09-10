@@ -37,6 +37,9 @@ public class DepositoProduccion {
 
     public synchronized Producto sacarProducto(){
         /*TODO: revisar problema de lista vacía */
+        while (this.productos.size() == 0){
+            Thread.yield();
+        }
         Producto p = productos.get(0);
         productos.remove(0);
         if (p.getTipo().equals("A") | p.getTipo().equals("B")){
