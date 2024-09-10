@@ -17,9 +17,9 @@ public class Productor extends Thread {
         while (numProductos > 0) {
             Producto p = new Producto(this.tipo);
             numProductos--;
+            deposito.guardarProducto(p);
             System.out.println("Productor " + String.valueOf(id) + ": produjo un producto " + p.getTipo()
                     + ". Restantes: " + String.valueOf(numProductos));
-            deposito.guardarProducto(p);
         }
         Producto terminal = new Producto("FIN_" + this.tipo);
         System.out.println("Productor " + String.valueOf(id) + ": produjo un producto terminal " + terminal.getTipo());
