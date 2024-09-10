@@ -20,6 +20,8 @@ public class DepositoDistribucion {
         }
         this.productos.add(p);
         this.capDepDist--;
+        System.out.println("Un producto de tipo " + p.getTipo()
+                + " fue guardado en el deposito de distribucion por el operario interno");
         notifyAll();
     }
 
