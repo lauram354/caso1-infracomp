@@ -1,21 +1,37 @@
 import java.util.Scanner;
+
 public class Consola {
     private static DepositoProduccion depProduccion;
     private static DepositoDistribucion depDistribucion;
-    private static Cinta cinta = new Cinta(false);  
-    
+    private static Cinta cinta = new Cinta(false);
+
     public static DepositoProduccion getDepProduccion() {
         return depProduccion;
     }
 
     public static void main(String[] args) {
+
+        boolean seguir = false;
+        int numProductos = 0;
+        int capDepProd = 0;
+        int capDepDist = 0;
+
         Scanner input = new Scanner(System.in);
-        System.out.println("Bienvenido, por favor ingresa el número de productos a realizar: ");
-        int numProductos = input.nextInt();
-        System.out.println("Ingresa la capacidad del deposito de producción: ");
-        int capDepProd = input.nextInt();
-        System.out.println("Ingresa la capacidad del deposito de distribución: ");
-        int capDepDist = input.nextInt();
+        while (!seguir) {
+
+            System.out.println("Bienvenido, por favor ingresa el número de productos a realizar: ");
+            numProductos = input.nextInt();
+            System.out.println("Ingresa la capacidad del deposito de producción: ");
+            capDepProd = input.nextInt();
+            System.out.println("Ingresa la capacidad del deposito de distribución: ");
+            capDepDist = input.nextInt();
+
+            if (numProductos < 1 || capDepProd < 1 || capDepDist < 1) {
+                System.out.println("Por favor ingresa valores válidos");
+            } else {
+                seguir = true;
+            }
+        }
         input.close();
 
         depProduccion = new DepositoProduccion(capDepProd);
@@ -32,7 +48,6 @@ public class Consola {
         Distribuidor dTipoB1 = new Distribuidor(3, "B", depDistribucion);
         Distribuidor dTipoB2 = new Distribuidor(4, "B", depDistribucion);
 
-
         pTipoA1.start();
         pTipoA2.start();
         pTipoB1.start();
@@ -43,6 +58,6 @@ public class Consola {
         dTipoA2.start();
         dTipoB1.start();
         dTipoB2.start();
-        /*System.out.println("Termina el main");*/
+        /* System.out.println("Termina el main"); */
     }
 }
