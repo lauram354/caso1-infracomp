@@ -23,7 +23,7 @@ public class DepositoDistribucion {
         notifyAll();
     }
 
-    public synchronized Producto sacarProducto(String tipo) {
+    public synchronized Producto sacarProducto(String tipo, int idDistribuidor) {
         while (this.productos.size() == 0 || !hayProductoTipo(tipo)) {
             try {
                 wait();
@@ -34,14 +34,14 @@ public class DepositoDistribucion {
         Producto p = productos.get(0);
         if (tipo.equals("A")) {
             if (productosNoTerminalesA == 0) {
-                p = traerProductoGeneral("A");
+                p = traerProductoGeneral("A", idDistribuidor);
             } else {
                 p = traerProductoNoTerminal("A");
                 productosNoTerminalesA--;
             }
         } else if (tipo.equals("B")) {
             if (productosNoTerminalesB == 0) {
-                p = traerProductoGeneral("B");
+                p = traerProductoGeneral("B", idDistribuidor);
             } else {
                 p = traerProductoNoTerminal("B");
                 productosNoTerminalesB--;
@@ -52,7 +52,7 @@ public class DepositoDistribucion {
         return p;
     }
 
-    public synchronized Producto traerProductoGeneral(String tipo) {
+    public synchronized Producto traerProductoGeneral(String tipo, int idDistribuidor) {
         Producto p = productos.get(0);
 
         for (int i = 0; i < productos.size(); i++) {
@@ -60,6 +60,8 @@ public class DepositoDistribucion {
             if (p.getTipo().equals("FIN_" + tipo)) {
                 this.productos.remove(i);
                 capDepDist++;
+                System.out.println(
+                        "El distribuidor " + String.valueOf(idDistribuidor) + " tomo un producto " + p.getTipo());
                 break;
             }
         }

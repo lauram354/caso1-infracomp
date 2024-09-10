@@ -15,14 +15,12 @@ public class Productor extends Thread {
     public void run() {
 
         while (numProductos > 0) {
-            Producto p = new Producto(this.tipo);
+            Producto p = new Producto(this.tipo, this.id);
             numProductos--;
-            deposito.guardarProducto(p);
-            System.out.println("Productor " + String.valueOf(id) + ": produjo un producto " + p.getTipo()
-                    + ". Restantes: " + String.valueOf(numProductos));
+            deposito.guardarProducto(p, this.numProductos);
+
         }
-        Producto terminal = new Producto("FIN_" + this.tipo);
-        System.out.println("Productor " + String.valueOf(id) + ": produjo un producto terminal " + terminal.getTipo());
+        Producto terminal = new Producto("FIN_" + this.tipo, this.id);
         deposito.agregarProductoTerminal(terminal);
         System.out.println("Termino el productor " + String.valueOf(id));
 

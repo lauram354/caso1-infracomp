@@ -14,7 +14,7 @@ public class DepositoProduccion {
         return capDepProd;
     }
 
-    public synchronized void guardarProducto(Producto p) {
+    public synchronized void guardarProducto(Producto p, int restantes) {
         while (capDepProd == 0) {
             try {
                 wait();
@@ -29,6 +29,9 @@ public class DepositoProduccion {
 
         this.productos.add(p);
         this.capDepProd--;
+        System.out.println(
+                "Productor " + String.valueOf(p.getIdProductorEncargado()) + ": produjo un producto " + p.getTipo()
+                        + ". Restantes: " + restantes);
 
     }
 
@@ -38,8 +41,8 @@ public class DepositoProduccion {
             Thread.yield();
         }
         Producto p = productos.get(0);
-        System.out.println("Un producto de tipo " + p.getTipo() + " fue sacado del deposito de produccion");
         productos.remove(0);
+        System.out.println("Un producto de tipo " + p.getTipo() + " fue sacado del deposito de produccion");
         if (p.getTipo().equals("A") | p.getTipo().equals("B")) {
             this.productosNoTerminales--;
         }
@@ -66,7 +69,7 @@ public class DepositoProduccion {
             }
         }
         System.out.println("Se agrego un producto terminal de tipo " + p.getTipo() + " al deposito de produccion");
-        guardarProducto(p);
+        guardarProducto(p, 0);
 
     }
 }

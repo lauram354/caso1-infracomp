@@ -13,7 +13,7 @@ public class Distribuidor extends Thread {
     @Override
     public void run() {
         while (terminar < 1) {
-            Producto p = deposito.sacarProducto(tipo);
+            Producto p = deposito.sacarProducto(tipo, this.id);
             System.out.println("El distribuidor " + String.valueOf(this.id) + " tomo un producto " + p.getTipo());
             if (p.getTipo().equals("FIN_" + this.tipo)) {
                 terminar++;
